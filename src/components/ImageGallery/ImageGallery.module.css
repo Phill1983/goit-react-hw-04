@@ -1,14 +1,15 @@
 .gallery {
+  /* className має бути саме .gallery — це шукає useEffect */
   display: grid;
   grid-template-columns: repeat(
-    auto-fill,
-    minmax(
-      250px,
-      1fr
-    )
+    4,
+    1fr
   );
   gap: 16px;
-  padding: 24px;
+  padding: 24px
+    24px
+    10px
+    24px;
   list-style: none;
   margin: 0;
 }

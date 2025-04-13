@@ -1,25 +1,38 @@
 import Modal from 'react-modal';
-import './ImageModal.module.css';
+import styles from './ImageModal.module.css';
 
-Modal.setAppElement('#root');
+Modal.setAppElement('#root'); 
 
 function ImageModal({ image, onClose }) {
-  const { alt_description, urls, user, likes } = image;
+  const { urls, alt_description, user, likes } = image;
+  
 
   return (
-    <Modal
-      isOpen={true}
-      onRequestClose={onClose}
-      className="modal"
-      overlayClassName="overlay"
+   <Modal
+  isOpen={true}
+  onRequestClose={onClose}
+  className="modal"
+  overlayClassName="overlay"
+  shouldCloseOnOverlayClick={true}
+  shouldCloseOnEsc={true}
     >
-      <img src={urls.regular} alt={alt_description} className="modal-image" />
-      <div className="info">
-        <p><strong>Author:</strong> {user.name}</p>
-        <p><strong>Likes:</strong> {likes}</p>
-        {alt_description && <p><strong>Description:</strong> {alt_description}</p>}
-      </div>
-    </Modal>
+      
+      <div className={styles['modal-content']}>
+        <div className={styles['image-wrapper']}>
+        
+        <img src={urls.regular} alt={alt_description} className={styles['modal-image']} />
+        <button className={styles['close-btn']} onClick={onClose} aria-label="Close modal">
+  ×
+          </button>
+          </div>
+    <div className={styles['info']}>
+      <p><strong>Author:</strong> {user.name}</p>
+      <p><strong>Likes:</strong> {likes}</p>
+      {alt_description && <p><strong>Description:</strong> {alt_description}</p>}
+      
+    </div>
+  </div>
+</Modal>
   );
 }
 

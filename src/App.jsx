@@ -17,6 +17,18 @@ function App() {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // 🔒 Заборона скролу при відкритій модалці
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [selectedImage]);
+
   // Запит до Unsplash API
   useEffect(() => {
     if (searchQuery === '') return;
@@ -31,9 +43,9 @@ function App() {
         );
 
         if (!response.ok) {
-            const errorText = await response.text(); // ← прочитає відповідь з сервера
-  console.error('Server response:', errorText); // ← покаже у консолі деталі
-  throw new Error(`Failed to fetch images (status ${response.status})`);
+          const errorText = await response.text();
+          console.error('Server response:', errorText);
+          throw new Error(`Failed to fetch images (status ${response.status})`);
         }
 
         const data = await response.json();
@@ -55,6 +67,9 @@ function App() {
     fetchImages();
   }, [searchQuery, page]);
 
+
+
+  
   const handleSearch = query => {
     setSearchQuery(query);
     setPage(1);
