@@ -1,5 +1,4 @@
 .gallery {
-  /* className має бути саме .gallery — це шукає useEffect */
   display: grid;
   grid-template-columns: repeat(
     4,
